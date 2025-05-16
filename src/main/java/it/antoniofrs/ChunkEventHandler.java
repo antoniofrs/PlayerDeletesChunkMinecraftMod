@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -44,6 +45,11 @@ public class ChunkEventHandler {
             for (int z = minZ; z <= maxZ; z++) {
                 for (int y = minY; y < maxY; y++) {
                     BlockPos pos = new BlockPos(x, y, z);
+                    BlockState currentState = world.getBlockState(pos);
+                    if (currentState.is(Blocks.END_PORTAL) || currentState.is(Blocks.END_PORTAL_FRAME)) {
+                        continue;
+                    }
+
                     world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                 }
             }
