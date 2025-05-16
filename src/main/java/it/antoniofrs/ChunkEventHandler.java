@@ -37,11 +37,12 @@ public class ChunkEventHandler {
         int minZ = chunkPos.getMinBlockZ();
         int maxX = chunkPos.getMaxBlockX();
         int maxZ = chunkPos.getMaxBlockZ();
-        int maxY = world.getMaxY();
+        int minY = -64;
+        int maxY = 320;
 
         for (int x = minX; x <= maxX; x++) {
             for (int z = minZ; z <= maxZ; z++) {
-                for (int y = 0; y < maxY; y++) {
+                for (int y = minY; y < maxY; y++) {
                     BlockPos pos = new BlockPos(x, y, z);
                     world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                 }
